@@ -1,0 +1,17 @@
+{
+  "name": "phone-remote-server",
+  "version": "0.0.1",
+  "main": "src/main.js",
+  "author": "Joshua Grosso",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "express": "^4.15.4",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.6.1"
+  }
+}

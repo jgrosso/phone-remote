@@ -1,0 +1,10 @@
+# Common
+.DS_Store
+
+# Client
+/client/.build
+/client/Packages
+/client/*.xcodeproj
+
+# Server
+/server/node_modules

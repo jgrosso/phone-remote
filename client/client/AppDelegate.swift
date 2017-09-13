@@ -11,18 +11,7 @@ import SocketIO
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-  override init() {
-    super.init()
-
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(currentApplicationChanged),
-      name: .NSWorkspaceDidActivateApplication,
-      object: nil
-    )
-  }
-
-  private var socket: SocketIOClient
+  private var socket: SocketIOClient!
 
   @objc private func currentApplicationChanged() {
     print("Current application changed!")
@@ -43,6 +32,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(currentApplicationChanged),
+      name: .NSWorkspaceDidActivateApplication,
+      object: nil
+    )
+
     socket = SocketIOClient(
       socketURL: URL(string: "http://localhost:3000")!,
       config: [.log(true), .compress]

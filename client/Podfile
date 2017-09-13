@@ -1,0 +1,6 @@
+platform :osx, '10.12'
+use_frameworks!
+
+target 'client' do
+  pod 'Socket.IO-Client-Swift', '~> 11.1.2'
+end

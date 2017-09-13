@@ -2,9 +2,7 @@
 .DS_Store
 
 # Client
-/client/.build
-/client/Packages
-/client/*.xcodeproj
+/client/Pods
 
 # Server
 /server/node_modules

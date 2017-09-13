@@ -9,7 +9,8 @@
 import Cocoa
 import SocketIO
 
-internal class CurrentApplicationChangedObserver: NSObject {
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
   override init() {
     super.init()
 
@@ -21,15 +22,12 @@ internal class CurrentApplicationChangedObserver: NSObject {
     )
   }
 
-  private func currentApplicationChanged() {
+  private var socket: SocketIOClient
+
+  @objc private func currentApplicationChanged() {
     print("Current application changed!")
     emitCurrentApplication()
   }
-}
-
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-  private var socket: SocketIOClient
 
   private func emitCurrentApplication() {
     if let currentApplication = NSWorkspace.shared().frontmostApplication?.localizedName {
@@ -56,16 +54,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     socket.on("request-application") { data, ack in
       print("request-application received!")
 
-      emitCurrentApplication()
+      self.emitCurrentApplication()
     }
     socket.on("run-shortcut") { data, ack in
       print("run-shortcut received!")
 
-      runScript("tell application \"System Events\" to keystroke \(data[0])")
+      self.runScript("tell application \"System Events\" to keystroke \(data[0])")
     }
     socket.connect()
-
-    let currentApplicationChangedListener = CurrentApplicationChangedObserver()
   }
 
   func applicationWillTerminate(_ aNotification: Notification) {}

@@ -10,56 +10,5 @@ import Cocoa
 import SocketIO
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-  private var socket: SocketIOClient!
-
-  @objc private func currentApplicationChanged() {
-    print("Current application changed!")
-    emitCurrentApplication()
-  }
-
-  private func emitCurrentApplication() {
-    if let currentApplication = NSWorkspace.shared().frontmostApplication?.localizedName {
-      socket.emit("current-application", currentApplication)
-    }
-  }
-
-  private func runScript(_ source: String) {
-    if let script = NSAppleScript(source: source) {
-      var error: NSDictionary?
-      script.executeAndReturnError(&error)
-    }
-  }
-
-  func applicationDidFinishLaunching(_ aNotification: Notification) {
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(currentApplicationChanged),
-      name: .NSWorkspaceDidActivateApplication,
-      object: nil
-    )
-
-    socket = SocketIOClient(
-      socketURL: URL(string: "http://localhost:3000")!,
-      config: [.log(true), .compress]
-    )
-
-    socket.on(clientEvent: .connect) { data, ack in
-      print("Connected!")
-    }
-    socket.on("request-application") { data, ack in
-      print("request-application received!")
-
-      self.emitCurrentApplication()
-    }
-    socket.on("run-shortcut") { data, ack in
-      print("run-shortcut received!")
-
-      self.runScript("tell application \"System Events\" to keystroke \(data[0])")
-    }
-    socket.connect()
-  }
-
-  func applicationWillTerminate(_ aNotification: Notification) {}
-}
+class AppDelegate: NSObject, NSApplicationDelegate {}
 

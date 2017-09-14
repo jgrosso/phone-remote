@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src -d lib && babel public -d lib/public",
+    "lint": "node_modules/.bin/eslint src public",
     "start": "node lib/main.js"
   },
   "dependencies": {

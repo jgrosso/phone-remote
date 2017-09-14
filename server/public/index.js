@@ -2,7 +2,7 @@ let socket;
 
 const command = (key) => `"${key}" using command down`;
 
-const shortcutMixins = {
+const mixins = {
   editor: [
     {
       name: 'Save',
@@ -25,11 +25,11 @@ const shortcutMixins = {
 
 const applications = {
   'Nightly': [
-    ...tabbed,
-    ...windowed
+    ...mixins.tabbed,
+    ...mixins.windowed
   ],
   'Code': [
-    ...editor,
+    ...mixins.editor,
     {
       name: 'New Tab',
       shortcut: command('n')
@@ -72,7 +72,7 @@ const loadApplication = (application) => {
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchmove', event => event.preventDefault());
 
-  socket = io();
+  socket = io(); // eslint-disable-line no-undef
   socket.on('current-application', loadApplication);
   socket.emit('request-application');
 });

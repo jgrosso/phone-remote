@@ -5,13 +5,16 @@
   "author": "Joshua Grosso",
   "license": "MIT",
   "scripts": {
-    "start": "node src/main.js"
+    "build": "babel src -d lib && babel public -d lib/public",
+    "start": "node lib/main.js"
   },
   "dependencies": {
     "express": "^4.15.4",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "eslint": "^4.6.1"
   }
 }

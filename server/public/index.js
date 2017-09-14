@@ -2,17 +2,37 @@ let socket;
 
 const command = (key) => `"${key}" using command down`;
 
-const applications = {
-  'Nightly': [
+const shortcutMixins = {
+  editor: [
+    {
+      name: 'Save',
+      shortcut: command('s')
+    }
+  ],
+  tabbed: [
     {
       name: 'New Tab',
       shortcut: command('t')
     }
   ],
-  'Code': [
+  windowed: [
     {
-      name: 'Save',
-      shortcut: command('s')
+      name: 'New Window',
+      shortcut: command('n')
+    }
+  ]
+};
+
+const applications = {
+  'Nightly': [
+    ...tabbed,
+    ...windowed
+  ],
+  'Code': [
+    ...editor,
+    {
+      name: 'New Tab',
+      shortcut: command('n')
     }
   ]
 };

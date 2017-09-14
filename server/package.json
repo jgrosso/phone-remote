@@ -5,7 +5,8 @@
   "author": "Joshua Grosso",
   "license": "MIT",
   "scripts": {
-    "build": "babel src -d lib && babel public -d lib/public",
+    "build": "babel src -d lib && babel public -d lib/public && yarn copy-static",
+    "copy-static": "cp public/index.css lib/public/index.css",
     "lint": "node_modules/.bin/eslint src public",
     "start": "node lib/main.js"
   },

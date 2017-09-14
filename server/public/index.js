@@ -2,6 +2,10 @@ let socket;
 
 const command = (key) => `"${key}" using command down`;
 
+const closeTab = {
+  name: 'Close Tab',
+  shortcut: command('w')
+};
 const mixins = {
   editor: [
     {
@@ -10,6 +14,7 @@ const mixins = {
     }
   ],
   tabbed: [
+    closeTab,
     {
       name: 'New Tab',
       shortcut: command('t')
@@ -24,15 +29,22 @@ const mixins = {
 };
 
 const applications = {
+  'Code': [
+    ...mixins.editor,
+    closeTab,
+    {
+      name: 'New Tab',
+      shortcut: command('n')
+    }
+  ],
   'Nightly': [
     ...mixins.tabbed,
     ...mixins.windowed
   ],
-  'Code': [
-    ...mixins.editor,
+  'Slack': [
     {
-      name: 'New Tab',
-      shortcut: command('n')
+      name: 'Switch Channel',
+      shortcut: command('k')
     }
   ]
 };

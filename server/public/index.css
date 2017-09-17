@@ -1,6 +1,46 @@
-button {
-  font-size: 3em;
+*,
+html,
+body {
+  /* CONFIGURATION */
+  box-sizing: border-box;
+}
 
-  height: 10em;
-  width: 10em;
+body {
+  /* TEXT */
+  font-family: sans-serif;
+}
+
+.btn {
+  /* BACKGROUND */
+  background-color: lightgrey;
+
+  /* BORDER */
+  border: 1px solid grey;
+  border-radius: 10px;
+
+  /* CONTENT CENTER */
+  /* Horizontal */
+  text-align: center;
+  /* Vertical */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* CURSOR */
+  cursor: pointer;
+
+  /* DIMENSIONS */
+  height: 7em;
+  width: 23%;
+
+  /* MARGIN */
+  margin: 1%;
+
+  /* TEXT */
+  font-size: 1.3em;
+  text-transform: uppercase;
+}
+.btn:active {
+  /* BACKGROUND */
+  background-color: grey;
 }

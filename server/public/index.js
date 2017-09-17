@@ -6,6 +6,14 @@ const closeTab = {
   name: 'Close Tab',
   shortcut: command('w')
 };
+const refresh = {
+  name: 'Refresh',
+  shortcut: command('r')
+};
+const reopenTab = {
+  name: 'Reopen Tab',
+  shortcut: command('T')
+};
 const mixins = {
   editor: [
     {
@@ -15,6 +23,7 @@ const mixins = {
   ],
   tabbed: [
     closeTab,
+    reopenTab,
     {
       name: 'New Tab',
       shortcut: command('t')
@@ -37,11 +46,18 @@ const applications = {
       shortcut: command('n')
     }
   ],
+  'Google Chrome': [
+    ...mixins.tabbed,
+    ...mixins.windowed,
+    refresh
+  ],
   'Nightly': [
     ...mixins.tabbed,
-    ...mixins.windowed
+    ...mixins.windowed,
+    refresh
   ],
   'Slack': [
+    refresh,
     {
       name: 'Switch Channel',
       shortcut: command('k')
@@ -49,7 +65,7 @@ const applications = {
   ]
 };
 
-const getButtons = () => Array.from(document.getElementsByTagName('button'));
+const getButtons = () => Array.from(document.getElementsByClassName('btn'));
 
 const clearButtons = () => {
   getButtons().forEach((button) => {
@@ -58,7 +74,8 @@ const clearButtons = () => {
 };
 
 const addButton = (name, shortcut) => {
-  const button = document.createElement('button');
+  const button = document.createElement('div');
+  button.classList += ['btn'];
   button.appendChild(document.createTextNode(name));
 
   button.onclick = () => {

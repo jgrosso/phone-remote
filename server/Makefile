@@ -2,12 +2,12 @@
 all: lib
 
 lib: src lib/public
-	babel src -d lib
+	node_modules/.bin/babel src -d lib
 
 lib/public: public
 	mkdir -p lib/public
 	cp -R public lib/
-	babel public -d lib/public
+	node_modules/.bin/babel public -d lib/public
 
 .PHONY: lint
 lint:
